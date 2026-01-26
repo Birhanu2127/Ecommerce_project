@@ -13,16 +13,13 @@ export function OrdersPage({ Cart }) {
         "http://localhost:3000/api/orders?expand=products"
       );
       setOrders(response.data);
-
     }
     fetchOrders();
   }, []);
   return (
     <>
       <title>Orders</title>
-
       <Header Cart={Cart} />
-
       <div className="orders-page">
         <div className="page-title">Your Orders</div>
         <div className="orders-grid">
