@@ -108,6 +108,7 @@ export function OrderSummery({ Cart, deliveryOptions, loadCart }) {
                   deliveryOptions={deliveryOptions}
                   cartItem={cartItem}
                   key={key}
+                  loadCart={loadCart}
                 />
               </div>
             </div>

@@ -5,8 +5,10 @@ import { Header } from "../../components/Header";
 import { formatMoney } from "../../utils/money";
 import "./OrdersPage.css";
 import dayjs from "dayjs";
-export function OrdersPage({ Cart }) {
+
+export function OrdersPage({ Cart, loadCart }) {
   const [orders, setOrders] = useState([]);
+
   useEffect(() => {
     // fetch the orders data from the backend server
     const fetchOrders = async () => {
@@ -17,6 +19,23 @@ export function OrdersPage({ Cart }) {
     }
     fetchOrders();
   }, []);
+
+  const handleAddToCart = async (product) => {
+    try {
+      await axios.post("http://localhost:3000/api/Cart-items", {
+        productId: product.id,
+        quantity: 1,
+      });
+      // Refresh the cart in the header
+      if (loadCart) loadCart();
+
+      // Optional: Visual feedback like an alert or toast?
+      // For now, no feedback needed or user can see cart badge update.
+    } catch (err) {
+      console.error("Error adding to cart:", err);
+    }
+  };
+
   return (
     <>
       <title>Orders</title>
@@ -68,7 +87,10 @@ export function OrdersPage({ Cart }) {
                           <div className="product-quantity">
                             Quantity: {orderProduct.quantity}
                           </div>
-                          <button className="buy-again-button button-primary">
+                          <button
+                            className="buy-again-button button-primary"
+                            onClick={() => handleAddToCart(product)}
+                          >
                             <img
                               className="buy-again-icon"
                               src="images/icons/buy-again.png"
