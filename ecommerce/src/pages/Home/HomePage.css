@@ -1,81 +1,70 @@
 .home-page {
   margin-top: 60px;
+  padding-bottom: 50px;
+  overflow-x: hidden;
+  /* Prevent page wide horizontal scroll */
 }
 
-.home-page .products-grid {
-  display: grid;
-
-  /* - In CSS Grid, 1fr means a column will take up the
-       remaining space in the grid.
-     - If we write 1fr 1fr ... 1fr; 8 times, this will
-       divide the grid into 8 columns, each taking up an
-       equal amount of the space.
-     - repeat(8, 1fr); is a shortcut for repeating "1fr"
-       8 times (instead of typing out "1fr" 8 times).
-       repeat(...) is a special property that works with
-       display: grid; */
-  grid-template-columns: repeat(8, 1fr);
+.product-section {
+  margin-bottom: 20px;
+  padding: 0 10px;
 }
 
-/* @media is used to create responsive design (making the
-   website look good on any screen size). This @media
-   means when the screen width is 2000px or less, we
-   will divide the grid into 7 columns instead of 8. */
-@media (max-width: 2000px) {
-  .home-page .products-grid {
-    grid-template-columns: repeat(7, 1fr);
-  }
+.product-section-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  padding-left: 15px;
 }
 
-/* This @media means when the screen width is 1600px or
-   less, we will divide the grid into 6 columns. */
-@media (max-width: 1600px) {
-  .home-page .products-grid {
-    grid-template-columns: repeat(6, 1fr);
-  }
+.products-grid-scrollable {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 20px 10px;
+  scroll-behavior: smooth;
+
+  /* Hide scrollbar for a cleaner look but allow scrolling */
+  scrollbar-width: thin;
 }
 
-@media (max-width: 1300px) {
-  .home-page .products-grid {
-    grid-template-columns: repeat(5, 1fr);
-  }
+.products-grid-scrollable::-webkit-scrollbar {
+  height: 8px;
 }
 
-@media (max-width: 1000px) {
-  .home-page .products-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (max-width: 800px) {
-  .home-page .products-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 575px) {
-  .home-page .products-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 450px) {
-  .home-page .products-grid {
-    grid-template-columns: 1fr;
-  }
+.products-grid-scrollable::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
 }
 
 .home-page .product-container {
-  padding-top: 40px;
-  padding-bottom: 25px;
-  padding-left: 25px;
-  padding-right: 25px;
-
+  padding: 25px;
   border-right: 1px solid rgb(240, 240, 240);
   border-bottom: 1px solid rgb(240, 240, 240);
+  border: 1px solid #e0e0e0;
+  /* Add full border */
+  border-radius: 8px;
+  /* Rounded corners */
 
   display: flex;
   flex-direction: column;
+
+  /* Fixed width for scrollable items */
+  min-width: 250px;
+  width: 250px;
+  background: white;
+
+  /* Smooth transition for hover */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, min-width 0.3s ease;
+}
+
+.home-page .product-container:hover {
+  transform: scale(1.05);
+  /* Zoom effect */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  /* "width interactive" - slight expansion */
+  min-width: 260px;
 }
 
 .home-page .product-image-container {
@@ -88,8 +77,6 @@
 }
 
 .home-page .product-image {
-  /* Images overflow the container by default. To prevent this, set
-     max-width and max-height to 100% to stay inside container. */
   max-width: 100%;
   max-height: 100%;
   border-radius: 5px;
@@ -98,6 +85,7 @@
 .home-page .product-name {
   height: 40px;
   margin-bottom: 5px;
+  overflow: hidden;
 }
 
 .home-page .product-rating-container {
@@ -138,9 +126,6 @@
   align-items: center;
   margin-bottom: 8px;
 
-  /* At first, the "Added to cart" message will
-     be invisible. Use JavaScript to change the
-     opacity and make it visible. */
   opacity: 0;
 }
 
