@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect, Fragment } from "react";
+import { Link } from "react-router-dom";
 import { Header } from "../../components/Header";
 import { formatMoney } from "../../utils/money";
 import "./OrdersPage.css";
@@ -55,7 +56,7 @@ export function OrdersPage({ Cart }) {
                         <div className="product-image-container">
                           <img src={product.image} alt={product.name} />
                         </div>
-                        
+
                         <div className="product-details">
                           <div className="product-name">{product.name}</div>
                           <div className="product-delivery-date">
@@ -80,11 +81,11 @@ export function OrdersPage({ Cart }) {
                         </div>
 
                         <div className="product-actions">
-                          <a href="/tracking">
+                          <Link to={`/tracking?orderId=${order.id}&productId=${product.id}`}>
                             <button className="track-package-button button-secondary">
                               Track package
                             </button>
-                          </a>
+                          </Link>
                         </div>
                       </Fragment>
                     );
