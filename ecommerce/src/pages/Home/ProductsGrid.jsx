@@ -1,15 +1,27 @@
 import axios from "axios";
 import { formatMoney } from "../../utils/money";
+import { useState } from "react";
 
 export function ProductsGrid({ products, loadCart, title }) {
-  // Renamed conceptually to behave like a row, but keeping export name to avoid breaking imports for now, 
-  // or I can update HomePage import. I'll keep the name but change internal structure.
+  // State to track which product has the "Added" message visible
+  const [addedMessageState, setAddedMessageState] = useState({});
+
+  const showAddedMessage = (productId) => {
+    setAddedMessageState(prev => ({ ...prev, [productId]: true }));
+
+    // Hide after 2 seconds
+    setTimeout(() => {
+      setAddedMessageState(prev => ({ ...prev, [productId]: false }));
+    }, 2000);
+  };
 
   return (
     <div className="product-section">
       <h2 className="product-section-title">{title}</h2>
       <div className="products-grid-scrollable">
         {products.map((product) => {
+          const isAddedVisible = addedMessageState[product.id];
+
           return (
             <div key={product.id} className="product-container">
               <div className="product-image-container">
@@ -35,7 +47,7 @@ export function ProductsGrid({ products, loadCart, title }) {
               </div>
 
               <div className="product-quantity-container">
-                <select>
+                <select id={`quantity-${product.id}`}>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -51,7 +63,10 @@ export function ProductsGrid({ products, loadCart, title }) {
 
               <div className="product-spacer"></div>
 
-              <div className="added-to-cart">
+              <div
+                className="added-to-cart"
+                style={{ opacity: isAddedVisible ? 1 : 0 }}
+              >
                 <img src="images/icons/checkmark.png" />
                 Added
               </div>
@@ -60,15 +75,21 @@ export function ProductsGrid({ products, loadCart, title }) {
                 className="add-to-cart-button button-primary"
                 onClick={async () => {
                   try {
+                    // Get quantity from the select element
+                    const quantitySelect = document.getElementById(`quantity-${product.id}`);
+                    const quantity = quantitySelect ? Number(quantitySelect.value) : 1;
+
                     await axios.post("http://localhost:3000/api/Cart-items", {
                       productId: product.id,
-                      quantity: 1,
+                      quantity: quantity,
                     });
+
+                    // Update UI
+                    showAddedMessage(product.id);
 
                     if (loadCart) {
                       loadCart();
                     } else {
-                      // Fallback if loadCart not passed, though it should be
                       window.dispatchEvent(new Event("cart-updated"));
                     }
                   } catch (err) {
