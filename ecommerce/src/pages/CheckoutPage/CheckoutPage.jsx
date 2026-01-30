@@ -4,7 +4,7 @@ import { OrderSummery } from "./OrderSummery";
 import { PaymentSummery } from "./PaymentSummery";
 import "./checkout-header.css";
 import "./CheckoutPage.css";
-export function CheckoutPage({ Cart }) {
+export function CheckoutPage({ Cart, loadCart }) {
   const [deliveryOptions, setDeliveryOptions] = useState([]);
   const [paymentSummery, setPaymentSummery] = useState([]);
   useEffect(() => {
@@ -48,7 +48,7 @@ export function CheckoutPage({ Cart }) {
           <div className="checkout-header-middle-section">
             Checkout (
             <a className="return-to-home-link" href="/">
-              3 items
+              {Cart.length} items
             </a>
             )
           </div>
@@ -63,7 +63,7 @@ export function CheckoutPage({ Cart }) {
         <div className="page-title">Review your order</div>
 
         <div className="checkout-grid">
-          <OrderSummery Cart={Cart} deliveryOptions={deliveryOptions} />
+          <OrderSummery Cart={Cart} deliveryOptions={deliveryOptions} loadCart={loadCart} />
 
           <PaymentSummery paymentSummery={paymentSummery} />
         </div>
@@ -71,3 +71,5 @@ export function CheckoutPage({ Cart }) {
     </>
   );
 }
+
+

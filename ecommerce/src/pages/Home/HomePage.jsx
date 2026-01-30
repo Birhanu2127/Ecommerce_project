@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Header } from "../../components/Header";
 import { ProductsGrid } from "./ProductsGrid.jsx";
 import "./HomePage.css";
-export function HomePage({ Cart }) {
+export function HomePage({ Cart, loadCart }) {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     // fetch the products data from the backend server
@@ -17,7 +17,7 @@ export function HomePage({ Cart }) {
       <Header Cart={Cart} />
 
       <div className="home-page">
-        <ProductsGrid products={products} />
+        <ProductsGrid products={products} loadCart={loadCart} />
       </div>
     </>
   );
