@@ -1,11 +1,11 @@
 import { Link } from 'react-router';
 import './header.css';
-export function Header({Cart}) {
+export function Header({ Cart, onSearch }) {
   let totalquantity = 0;
   Cart.forEach(item => {
     totalquantity += item.quantity;
   });
-  
+
   return (
     <div className="header">
       <div className="left-section">
@@ -18,7 +18,12 @@ export function Header({Cart}) {
       </div>
 
       <div className="middle-section">
-        <input className="search-bar" type="text" placeholder="Search" />
+        <input
+          className="search-bar"
+          type="text"
+          placeholder="Search"
+          onChange={(e) => onSearch && onSearch(e.target.value)}
+        />
 
         <button className="search-button">
           <img className="search-icon" src="images/icons/search-icon.png" />
@@ -33,7 +38,7 @@ export function Header({Cart}) {
 
         <Link className="cart-link header-link" to="/checkout">
           <img className="cart-icon" src="images/icons/cart-icon.png" />
-          <div className="cart-quantity"> { totalquantity } </div>
+          <div className="cart-quantity"> {totalquantity} </div>
           <div className="cart-text">Cart</div>
         </Link>
       </div>

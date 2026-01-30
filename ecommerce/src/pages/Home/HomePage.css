@@ -2,19 +2,39 @@
   margin-top: 60px;
   padding-bottom: 50px;
   overflow-x: hidden;
-  /* Prevent page wide horizontal scroll */
+}
+
+/* Container to center everything effectively */
+.home-page-content {
+  max-width: 1400px;
+  /* Or whatever max width makes sense */
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .product-section {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   padding: 0 10px;
 }
 
 .product-section-title {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
-  margin-bottom: 15px;
-  padding-left: 15px;
+  margin-bottom: 20px;
+  padding-left: 0;
+
+  /* Center the title */
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* Interactive title hover */
+.product-section-title:hover {
+  transform: scale(1.02);
+  color: rgb(25, 135, 84);
+  /* Green tint on hover */
+  text-decoration: underline;
 }
 
 .products-grid-scrollable {
@@ -23,10 +43,24 @@
   gap: 20px;
   padding: 20px 10px;
   scroll-behavior: smooth;
-
-  /* Hide scrollbar for a cleaner look but allow scrolling */
   scrollbar-width: thin;
+
+  /* Center items if there are few? 
+     Flexbox centering works well if items don't overflow. 
+     If they overflow, start aligned. 
+  */
+  justify-content: flex-start;
 }
+
+/* If we want centered items when they don't fill the screen, 
+   we can use a media query or JS, but flex-start is safer for scrolling.
+   However, user said "all items should be in the center the same spacing in the left and right side".
+   If we wrap the grid in a centered container (home-page-content), that handles main spacing.
+   But if the row has empty space, items stick to left. 
+   'justify-content: center' breaks scroll if overflowing in some browsers/flex implementations (items get cut off at start).
+   Safe bet: margin: 0 auto on the grid itself if width is fixed, or stick to flex-start inside a centered container.
+   Given scrollable nature, sticking to left start is standard, but the container itself is now centered on page.
+*/
 
 .products-grid-scrollable::-webkit-scrollbar {
   height: 8px;
@@ -42,28 +76,22 @@
   border-right: 1px solid rgb(240, 240, 240);
   border-bottom: 1px solid rgb(240, 240, 240);
   border: 1px solid #e0e0e0;
-  /* Add full border */
   border-radius: 8px;
-  /* Rounded corners */
 
   display: flex;
   flex-direction: column;
 
-  /* Fixed width for scrollable items */
   min-width: 250px;
   width: 250px;
   background: white;
 
-  /* Smooth transition for hover */
   transition: transform 0.3s ease, box-shadow 0.3s ease, min-width 0.3s ease;
 }
 
 .home-page .product-container:hover {
   transform: scale(1.05);
-  /* Zoom effect */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
   z-index: 10;
-  /* "width interactive" - slight expansion */
   min-width: 260px;
 }
 
