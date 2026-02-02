@@ -5,6 +5,7 @@ import { HomePage } from "./pages/Home/HomePage.jsx";
 import { CheckoutPage } from "./pages/CheckoutPage/CheckoutPage.jsx";
 import { OrdersPage } from "./pages/Orders/OrdersPage.jsx";
 import { TrackingPage } from "../src/pages/TrackingPage/TrackingPage.jsx";
+import { ContactPage } from "./pages/ContactPage/ContactPage.jsx";
 import "./App.css";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <Route path="checkout" element={<CheckoutPage Cart={Cart} loadCart={loadCart} />} />
       <Route path="orders" element={<OrdersPage Cart={Cart} loadCart={loadCart} />} />
       <Route path="tracking" element={<TrackingPage Cart={Cart} />} />
+      <Route path="contact" element={<ContactPage />} />
     </Routes>
   );
 }
