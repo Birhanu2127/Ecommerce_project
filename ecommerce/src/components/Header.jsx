@@ -15,6 +15,9 @@ export function Header({ Cart, onSearch }) {
           <img className="mobile-logo"
             src="images/mobile-logo-white.png" />
         </Link>
+        <Link to="/contact" className="header-link contact-link">
+          Contact Us
+        </Link>
       </div>
 
       <div className="middle-section">
