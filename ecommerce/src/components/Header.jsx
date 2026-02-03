@@ -15,9 +15,6 @@ export function Header({ Cart, onSearch }) {
           <img className="mobile-logo"
             src="images/mobile-logo-white.png" />
         </Link>
-        <Link to="/contact" className="header-link contact-link">
-          Contact Us
-        </Link>
       </div>
 
       <div className="middle-section">
@@ -35,8 +32,11 @@ export function Header({ Cart, onSearch }) {
 
       <div className="right-section">
         <Link className="orders-link header-link" to="/orders">
-
           <span className="orders-text">Orders</span>
+        </Link>
+
+        <Link to="/contact" className="header-link contact-link">
+          <span className="contact-text">Contact Us</span>
         </Link>
 
         <Link className="cart-link header-link" to="/checkout">

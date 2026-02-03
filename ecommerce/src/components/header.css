@@ -98,7 +98,7 @@
 }
 
 .header .right-section {
-  width: 180px;
+  width: auto;
   flex-shrink: 0;
   display: flex;
   justify-content: end;
@@ -150,16 +150,16 @@
 }
 
 .header .contact-link {
+  color: white;
+
   display: flex;
   align-items: center;
-  margin-left: 10px;
-  color: white;
-  text-decoration: none;
-  border: 1px solid transparent;
-  padding: 5px 9px;
-  border-radius: 2px;
+  padding-left: 13px;
+  padding-right: 13px;
 }
 
-.header .contact-link:hover {
-  border: 1px solid white;
+.header .contact-text {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
 }
